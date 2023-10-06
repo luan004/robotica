@@ -1,0 +1,90 @@
+#define ENA 9  // Motor A - Esquerdo
+#define IN1 8
+#define ENB 3  // Motor B - Direito
+#define IN3 4
+
+// Matriz
+#define S1 A1
+#define S2 A2
+#define S3 A3
+#define S4 A4
+#define S5 A5
+#define CLP A6
+
+int s[6] = { 0, 0, 0, 0, 0, 0 };
+int vel = 0;
+int red = 25;
+
+void setup() {
+  pinMode(IN1, OUTPUT);
+  pinMode(ENA, OUTPUT);
+  pinMode(IN3, OUTPUT);
+  pinMode(ENB, OUTPUT);
+
+  pinMode(S1, INPUT);
+  pinMode(S2, INPUT);
+  pinMode(S3, INPUT);
+  pinMode(S4, INPUT);
+  pinMode(S5, INPUT);
+  pinMode(CLP, INPUT);
+
+  Serial.begin(9600);
+  digitalWrite(IN1, HIGH);
+  digitalWrite(IN3, HIGH);
+}
+
+void loop() {
+  //String mat = lerMatriz();
+
+  analogWrite(ENA, vel);
+  analogWrite(ENB, vel);
+
+/*  if (mat == "10000") {
+    Serial.println("LIGA");
+    analogWrite(ENA, 0);
+    analogWrite(ENB, vel);
+  } else if (mat == "11000") {
+    analogWrite(ENA, vel - (red * 3));
+    analogWrite(ENB, vel);
+  } else if (mat == "01000") {
+    analogWrite(ENA, vel - (red * 2));
+    analogWrite(ENB, vel);
+  } else if (mat == "01100") {
+    analogWrite(ENA, vel - (red * 1));
+    analogWrite(ENB, vel);
+  } else if (mat == "00100") {
+    analogWrite(ENA, vel);
+    analogWrite(ENB, vel);
+  } else if (mat == "00110") {
+    analogWrite(ENA, vel);
+    analogWrite(ENB, vel - (red * 1));
+  }  else if (mat == "00010") {
+    analogWrite(ENA, vel);
+    analogWrite(ENB, vel - (red * 2));
+  } else if (mat == "00011") {
+    analogWrite(ENA, vel);
+    analogWrite(ENB, vel - (red * 3));
+  } else if (mat == "00001") {
+    analogWrite(ENA, vel);
+    analogWrite(ENB, 0);
+  } else {
+    analogWrite(ENA, 0);
+    analogWrite(ENB, 0);
+  }*/
+}
+
+
+String lerMatriz() {
+  s[0] = digitalRead(CLP);
+  s[1] = digitalRead(S1);
+  s[2] = digitalRead(S2);
+  s[3] = digitalRead(S3);
+  s[4] = digitalRead(S4);
+  s[5] = digitalRead(S5);
+
+  String str = String(s[1]) + String(s[2]) + String(s[3]) + String(s[4]) + String(s[5]);
+
+  Serial.println(str);
+
+  return str;
+}
